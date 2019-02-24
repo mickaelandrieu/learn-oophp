@@ -13,3 +13,10 @@ It's done.
 Warnings:
 ---------
 Verify the rights on the 'data' directory.
+
+How to test the application?
+----------------------------
+
+```
+make check
+```
