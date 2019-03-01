@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  php:
+    build: .docker/php
+    env_file: .env
+    depends_on:
+      - db
+    links:
+      - db
+    volumes:
+      - .:/srv/app
+    ports:
+      - 81:80
+
+  db:
+    image: mysql:5.7
+    volumes:
+      - ./dev/database:/docker-entrypoint-initdb.d/
+    ports:
+      - 13306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root

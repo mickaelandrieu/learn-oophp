@@ -1,4 +1,31 @@
-.PHONY: check csfixer phpstan behat security
+.PHONY: build start uninstall check csfixer phpstan behat security
+
+DOCKER          = docker
+DOCKER_COMPOSE  = docker-compose
+PHP_SERVICE     = $(DOCKER_COMPOSE) exec php sh -c
+CONSOLE         = $(DOCKER_COMPOSE) exec php bin/console
+
+##
+## ----------------------------------------------------------------------------
+##   Environment
+## ----------------------------------------------------------------------------
+##
+
+build: ## Build the environment
+	$(DOCKER_COMPOSE) build
+
+start: ## Start the environment
+	$(DOCKER_COMPOSE) up -d --remove-orphans
+
+uninstall: ## Uninstall the environment
+	$(DOCKER_COMPOSE) kill
+	$(DOCKER_COMPOSE) down --volumes --remove-orphans
+
+php: ## Open a terminal in the "php" container
+	$(DOCKER_COMPOSE) exec php sh
+
+db: ## Open a terminal in the "db" container
+	$(DOCKER_COMPOSE) exec db sh
 
 ##
 ## ----------------------------------------------------------------------------

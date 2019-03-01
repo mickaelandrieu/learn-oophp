@@ -4,11 +4,18 @@
  * Global configuration of application
  */
 
-define('SERVEUR_URL', 'http://www.weplaymusic.fr');
+function get($configKey, $default)
+{
+    if (getenv($configKey) !== false) {
+        return $getenv($configKey);
+    }
+
+    return $default;
+}
+
+define('SERVEUR_URL', get('SERVEUR_URL', 'http://localhost:81'));
 define('BASE_URL', SERVEUR_URL . '/');
 define('BASE_FILE', __DIR__.'/../');
-
-define('LIB_FILE', BASE_FILE . 'modeles/');
 
 define('PUBLIC_URL', BASE_URL . "public/");
 define('ADMIN_URL', BASE_URL . "admin/");
@@ -20,16 +27,9 @@ define('DATA_URL', BASE_URL . 'data/');
 define('DATA_FILE', BASE_FILE . 'data/');
 
 /**
- * external libraries
- */
-define('HELPER_URL', BASE_URL . 'helpers/');
-define('HELPER_FILE', BASE_FILE . 'helpers/');
-
-/**
  * Database configuration
  */
 define('DB_CONFIG', "config/config_db.php");
-
 
 require_once(BASE_FILE . DB_CONFIG);
 ?>
